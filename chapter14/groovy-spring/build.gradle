@@ -1,7 +1,7 @@
 apply plugin: 'groovy'
 
 dependencies{
-	compile spring.context, misc.groovy, misc.joda
+	implementation spring.context, misc.groovy, misc.joda
 }
 
 jar {
@@ -9,15 +9,15 @@ jar {
 		attributes("Created-By"      : "Iuliana Cosmina",
 				"Specification-Title": "Pro Spring 5",
 				"Main-Class"         : "com.apress.prospring5.ch14.RuleEngineDemo",
-				"Class-Path"         : configurations.compile.collect { it.getName() }.join(' '))
+				"Class-Path"         : configurations.runtimeClasspath.collect { it.getName() }.join(' '))
 	}
 }
 
 sourceSets {
 	main {
-		// no source dirs for the java compiler
+		// no source dirs for the java implementationr
 		java { srcDirs = [] }
-		// compile   everything in src/ with groovy
+		// implementation   everything in src/ with groovy
 		groovy { srcDirs = ["src/main/java", "src/main/groovy", "rules"] }  // (*)
 	}
 }
@@ -29,7 +29,7 @@ task copyRuleFile(type: Copy) {
 	into "$buildDir/target/rules"
 
 }
-compileJava.dependsOn copyRuleFile
+implementationJava.dependsOn copyRuleFile
 */
 
 task ruleExec(type:JavaExec) {

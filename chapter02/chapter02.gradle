@@ -4,13 +4,19 @@ subprojects {
 
 	/*Task that copies all the dependencies under build/libs */
 	task copyDependencies(type: Copy) {
-		from configurations.compile
+		from configurations.runtimeClasspath
 		into 'build/libs'
 	}
 
+//	configurations {
+//		implementation
+//	}
+
 	dependencies {
-		compile spring.context, misc.slf4jJcl, misc.logback
-		testCompile testing.junit
+		implementation spring.context
+		implementation misc.slf4jJcl
+		implementation misc.logback
+		testImplementation testing.junit
 	}
 }
 
